@@ -12,17 +12,17 @@ package_group(
 )
 
 py_binary(
-    name = "build_mscoco_data",
+    name = "build_html_data",
     srcs = [
-        "data/build_mscoco_data.py",
+        "data/build_html_data.py",
     ],
 )
 
 sh_binary(
-    name = "download_and_preprocess_mscoco",
-    srcs = ["data/download_and_preprocess_mscoco.sh"],
+    name = "preprocess_html",
+    srcs = ["data/preprocess_html.sh"],
     data = [
-        ":build_mscoco_data",
+        ":build_html_data",
     ],
 )
 
