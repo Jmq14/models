@@ -34,7 +34,7 @@ class ModelConfig(object):
 
     # Approximate number of values per input shard. Used to ensure sufficient
     # mixing between shards in training.
-    self.values_per_input_shard = 2300
+    self.values_per_input_shard = 4000
     # Minimum number of shards to keep in the input queue.
     self.input_queue_capacity_factor = 2
     # Number of threads for prefetching SequenceExample protos.
@@ -50,7 +50,7 @@ class ModelConfig(object):
     # for differences between tokenizer versions used in preprocessing. There is
     # no harm in using a value greater than the actual vocab size, but using a
     # value less than the actual vocab size will result in an error.
-    self.vocab_size = 12000
+    self.vocab_size = 400
 
     # Number of threads for image preprocessing. Should be a multiple of 2.
     self.num_preprocess_threads = 4
@@ -64,8 +64,8 @@ class ModelConfig(object):
     self.inception_checkpoint_file = None
 
     # Dimensions of Inception v3 input images.
-    self.image_height = 299
-    self.image_width = 299
+    self.image_height = 400
+    self.image_width = 400
 
     # Scale used to initialize model variables.
     self.initializer_scale = 0.08
@@ -84,7 +84,7 @@ class TrainingConfig(object):
   def __init__(self):
     """Sets the default training hyperparameters."""
     # Number of examples per epoch of training data.
-    self.num_examples_per_epoch = 586363
+    self.num_examples_per_epoch = 1000000
 
     # Optimizer for training the model.
     self.optimizer = "SGD"
@@ -92,7 +92,7 @@ class TrainingConfig(object):
     # Learning rate for the initial phase of training.
     self.initial_learning_rate = 2.0
     self.learning_rate_decay_factor = 0.5
-    self.num_epochs_per_decay = 8.0
+    self.num_epochs_per_decay = 4.0
 
     # Learning rate when fine tuning the Inception v3 parameters.
     self.train_inception_learning_rate = 0.0005
@@ -101,4 +101,4 @@ class TrainingConfig(object):
     self.clip_gradients = 5.0
 
     # How many model checkpoints to keep.
-    self.max_checkpoints_to_keep = 5
+    self.max_checkpoints_to_keep = 10

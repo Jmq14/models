@@ -36,8 +36,8 @@ def distort_image(image, thread_id):
       [0, 1].
   """
   # Randomly flip horizontally.
-  with tf.name_scope("flip_horizontal", values=[image]):
-    image = tf.image.random_flip_left_right(image)
+  # with tf.name_scope("flip_horizontal", values=[image]):
+  #  image = tf.image.random_flip_left_right(image)
 
   # Randomly distort the colors based on thread id.
   color_ordering = thread_id % 2
@@ -63,8 +63,8 @@ def process_image(encoded_image,
                   is_training,
                   height,
                   width,
-                  resize_height=346,
-                  resize_width=346,
+                  resize_height=400,
+                  resize_width=400,
                   thread_id=0,
                   image_format="jpeg"):
   """Decode an image, resize and apply random distortions.
@@ -113,9 +113,7 @@ def process_image(encoded_image,
                                    method=tf.image.ResizeMethod.BILINEAR)
 
   # Crop to final dimensions.
-  if is_training:
-    image = tf.random_crop(image, [height, width, 3])
-  else:
+  if not is_training:
     # Central crop, assuming resize_height > height, resize_width > width.
     image = tf.image.resize_image_with_crop_or_pad(image, height, width)
 
